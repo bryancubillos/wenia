@@ -28,7 +28,7 @@ class SecurityLocalDatasource {
   }
 
   // [Database]
-  Future<void> initDatabase() async {
-    await UserDatabase().initDatabase();
+  Future<bool> initDatabase() async {
+    return await UserDatabase().initDatabase();
   }
 }

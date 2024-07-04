@@ -1,7 +1,7 @@
 class UserEntity {
   String? email;
   String? name;
-  String? id;
+  String? userId;
   DateTime? birthDate;
 
   UserEntity();
@@ -11,7 +11,7 @@ class UserEntity {
 
     userEntity.email = map['email'];
     userEntity.name = map['name'];
-    userEntity.id = map['id'];
+    userEntity.userId = map['userId'];
     userEntity.birthDate = map['birthDate'];
     
     return userEntity;
@@ -21,7 +21,7 @@ class UserEntity {
     return {
       'email': email,
       'name': name,
-      'id': id,
+      'userId': userId,
       'birthDate': birthDate,
     };
   } 

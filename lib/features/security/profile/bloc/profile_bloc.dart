@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:wenia/BLL/security/security_bll.dart';
 import 'package:wenia/core/Entities/security/user_entity.dart';
@@ -12,6 +11,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     // All events
     on<DoGetProfileUser>(_onDoGetProfileUser);
     on<DoLogOutProfileUser>(_onDoLogOutProfileUser);
+    on<DoNotifyChangePasswordProfileUser>(_onDoNotifyChangePasswordProfileUser);
   }
 
   // [Events]
@@ -20,7 +20,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     UserEntity? currentUser = await SecurityBll().getCurrentUser();
 
     // Set state
-    emit(ProfileLoaded(currentUser));
+    emit(ProfileLoaded(currentUser, ""));
   }
 
   Future<void> _onDoLogOutProfileUser(DoLogOutProfileUser event, Emitter<ProfileState> emit) async {
@@ -28,6 +28,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     await SecurityBll().signOut();
 
     // Set state
-    emit(ProfileLoaded(null));
-  }  
+    emit(ProfileLoaded(null, ""));
+  }
+
+  Future<void> _onDoNotifyChangePasswordProfileUser(DoNotifyChangePasswordProfileUser event, Emitter<ProfileState> emit) async {
+    // Set state
+    emit(ProfileLoaded(null, "change-password-success-message"));
+  }
 }

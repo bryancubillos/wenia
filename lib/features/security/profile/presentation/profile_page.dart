@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:wenia/core/router/routes.dart';
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/common/message/message.dart';
@@ -22,7 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
 
     // Get menu options
-    context.read<ProfileBloc>().add(DoGetProfileUser());
+    if(mounted) {
+      context.read<ProfileBloc>().add(DoGetProfileUser());
+    }
   }
 
   @override
@@ -35,35 +38,51 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.only(top: 80, bottom: 20),
               color: ThemeApp.secondColor,
               child: Center(
-                child: 
-                BlocBuilder<ProfileBloc, ProfileState>(
-                  buildWhen: (previous, current) => current is ProfileLoaded,
-                  builder: (context, state) {
-                    if(state is ProfileLoaded) {
-                      if(state.userLoaded == null) {
-                        // Read user again
-                        context.read<SecurityBloc>().add(DoGetSecurityUser());
+                child: BlocListener<ProfileBloc, ProfileState>(
+                  listener: (context, state) {
+                    if (state is ProfileLoaded) {
+                      if(mounted && state.message != null && state.message!.isNotEmpty) {
+                        // Show message
+                        Message().showMessageWithAction(context, CultureService().getLocalResource(state.message!), () {
+                          // Log out user
+                          context.read<ProfileBloc>().add(DoLogOutProfileUser());
+                        });
+                      }
+                    }
+                  },
+                  child: BlocBuilder<ProfileBloc, ProfileState>(
+                    buildWhen: (previous, current) => current is ProfileLoaded,
+                    builder: (context, state) {
+                      if(state is ProfileLoaded) {
+                        if(state.userLoaded == null) {
+                          // Read user again
+                          context.read<SecurityBloc>().add(DoGetSecurityUser());
 
-                        // Show loading
-                        return const Center(child: CircularProgressIndicator());
+                          // Show loading
+                          return Image.asset(
+                            'lib/core/assets/img/bye.png',
+                            width: 200,
+                            height: 200,
+                          );
+                        }
+                        else {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              getAvatarIcon(),
+                              const SizedBox(height: 15),
+                              getUserName(state.userLoaded?.email ?? ""),
+                              getUserEmail(state.userLoaded?.name ?? "")
+                            ]
+                          );
+                        }
                       }
                       else {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            getAvatarIcon(),
-                            const SizedBox(height: 15),
-                            getUserName(state.userLoaded?.email ?? ""),
-                            getUserEmail(state.userLoaded?.name ?? "")
-                          ]
-                        );
+                        return const Center(child: CircularProgressIndicator());
                       }
                     }
-                    else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  }
-                ),
+                  ),
+                )
               ),
           ),     
           // Body
@@ -199,6 +218,8 @@ class _ProfilePageState extends State<ProfilePage> {
       false,
       true,
       () {
+        // Go to change password page
+        Navigator.pushNamed(context, Routes.changePassword);
       });
   }
 
@@ -216,7 +237,7 @@ class _ProfilePageState extends State<ProfilePage> {
             // Log out user
             context.read<ProfileBloc>().add(DoLogOutProfileUser());
           }
-        );       
+        );
       });
   }
 }

@@ -13,7 +13,7 @@ class CommonDatabase {
   }
 
   // [Database]
-  Future<void> initDatabase() async {
-    await SecurityDAL().initDatabase();
+  Future<bool> initDatabase() async {
+    return await SecurityDAL().initDatabase();
   }
 }

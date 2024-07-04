@@ -7,7 +7,8 @@ sealed class ProfileState {
 final class ProfileInitial extends ProfileState {}
 
 final class ProfileLoaded extends ProfileState {
-  final UserEntity? userLoaded;
+  final UserEntity? userLoaded;  
+  final String? message;
 
-  ProfileLoaded(this.userLoaded);
+  ProfileLoaded(this.userLoaded, this.message);
 }

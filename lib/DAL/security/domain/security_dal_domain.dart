@@ -29,7 +29,7 @@ class SecurityDAL {
       UserEntity localUser = UserEntity();
       localUser.email = user.email;
 
-      int saveResult = await SecurityLocalDatasource().saveUser(localUser);
+      await SecurityLocalDatasource().saveUser(localUser);
     }
 
     return user;
@@ -47,6 +47,10 @@ class SecurityDAL {
     await SecurityLocalDatasource().signOut();
   }
 
+  Future<bool> changePassword(String newPassword) async {
+    return await SecurityRemoteDatasource().changePassword(newPassword);
+  }
+  
   // [User]
   Future<UserEntity?> getCurrentUser() async {
     UserEntity? currentUser;
@@ -62,7 +66,7 @@ class SecurityDAL {
   }
 
   // [Database]
-  Future<void> initDatabase() async {
-    await SecurityLocalDatasource().initDatabase();
+  Future<bool> initDatabase() async {
+    return await SecurityLocalDatasource().initDatabase();
   }
 }

@@ -47,6 +47,22 @@ class SecurityBll {
     return SecurityDAL().getCurrentUser();
   }
 
+  Future<ResultEntity> changePassword(String newPassword) async {
+    ResultEntity result = ResultEntity.empty();
+    result.result = false;
+
+    ResultEntity resultValidation = await itsPossibleChangePassword(newPassword);
+    
+    if(resultValidation.result) {
+      result.result = await SecurityDAL().changePassword(newPassword);
+    }
+    else {
+      result.cultureMessage = resultValidation.cultureMessage;
+    }
+
+    return result;
+  }
+
   // [Functions]
   Future<ResultEntity> itsPossibleSaveAccount(String email, String password, bool verifyAge) async {
     ResultEntity result = ResultEntity.empty();
@@ -58,25 +74,38 @@ class SecurityBll {
       result.result = false;
       result.cultureMessage = "login-registrer-empty-information-email";
     }
-    
-    if(result.result && password.isEmpty) {
-      result.result = false;
-      result.cultureMessage = "login-registrer-empty-information-password";
-    }
-    
+        
     if(result.result && email.length < EnvironmentConfig.minAccountNameLength) {
       result.result = false;
       result.cultureMessage = "login-registrer-email-min";
     }
     
-    if(result.result && password.length < EnvironmentConfig.minPasswordLength) {
-      result.result = false;
-      result.cultureMessage = "login-registrer-password-min";
-    }
-
     if(result.result && verifyAge == false) {
       result.result = false;
       result.cultureMessage = "login-registrer-age-error-message";
+    }
+
+    if(result.result) {
+      result = await itsPossibleChangePassword(password);
+    }
+
+    return result;
+  }
+
+  Future<ResultEntity> itsPossibleChangePassword(String newPassword) async {
+    ResultEntity result = ResultEntity.empty();
+    
+    // By default all is ok
+    result.result = true;
+
+    if(newPassword.isEmpty) {
+      result.result = false;
+      result.cultureMessage = "login-registrer-empty-information-password";
+    }
+    
+    if(result.result && newPassword.length < EnvironmentConfig.minPasswordLength) {
+      result.result = false;
+      result.cultureMessage = "login-registrer-password-min";
     }
 
     return result;

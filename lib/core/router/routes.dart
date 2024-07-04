@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:wenia/features/common/menu/presentation/menu_page.dart';
 import 'package:wenia/features/common/welcome/presentation/welcome_page.dart';
+import 'package:wenia/features/security/change_password/presentation/change_password_page.dart';
 import 'package:wenia/features/security/login/presentation/security_login_page.dart';
 import 'package:wenia/features/security/new_account/presentation/new_account_page.dart';
 import 'package:wenia/features/security/security/presentation/security_page.dart';
@@ -30,7 +31,7 @@ class Routes {
 
       // Security
       login: (context) => const SecurityLoginPage(),
-      changePassword: (context) => Container(),
+      changePassword: (context) => const ChangePasswordPage(),
       register: (context) => const NewAccountPage(),
       security: (context) => const SecurityPage(),
       

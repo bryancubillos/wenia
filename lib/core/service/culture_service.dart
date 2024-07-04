@@ -116,6 +116,20 @@ class CultureService {
       "en": "Do you want save?",
       "es": "¿Quieres guardar?"
     }],
+
+    // Security
+    "security-change-password-title": [{
+      "es":"Nueva contraseña"
+    }],
+    "security-change-password-action" : [{
+      "es":"Cambiar contraseña"
+    }],
+    "change-password-error-message" : [{
+      "es":"¡Ups lo sentimos!, ha ocurrido un error al cambiar la contraseña"
+    }],
+    "change-password-success-message" : [{
+      "es":"¡Contraseña cambiada con éxito!, por favor inicia sesión nuevamente"
+    }],
   };
 
   // [Singleton]

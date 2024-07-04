@@ -44,3 +44,4 @@ flutter:
 
   assets:
     - lib/core/assets/img/wenia-logo.png
+    - lib/core/assets/img/bye.png

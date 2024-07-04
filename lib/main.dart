@@ -2,11 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:wenia/BLL/common/common_database.dart';
 import 'package:wenia/core/config/environment_config.dart';
 import 'package:wenia/core/router/routes.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/common/menu/bloc/menu_bloc.dart';
+import 'package:wenia/features/security/change_password/bloc/change_password_bloc.dart';
 import 'package:wenia/features/security/login/bloc/login_bloc.dart';
 import 'package:wenia/features/security/new_account/bloc/new_account_bloc.dart';
 import 'package:wenia/features/security/profile/bloc/profile_bloc.dart';
@@ -39,6 +39,9 @@ void main() async {
       BlocProvider<NewAccountBloc>(
         create: (BuildContext context) => NewAccountBloc(),
       ),
+      BlocProvider<ChangePasswordBloc>(
+        create: (BuildContext context) => ChangePasswordBloc(),
+      ),
     ],
     child: const MyApp()
   ));  
@@ -64,13 +67,8 @@ class MyApp extends StatelessWidget {
 /**
  * TODO:
  * 
- * Usuario:
- * 
- * - Implementar base de datos (Dynamo, Firestore, local DB)
- * 
  * User Profile:
  * 
- * - Cambiar de contraseña en Firebase
- * - Update [Nombre, Cedula, Cumpleaños] + Id de firebase
+ * - Update [Nombre, id, Cumpleaños]
  * 
  */

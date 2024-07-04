@@ -7,3 +7,5 @@ sealed class ProfileEvent {
 final class DoGetProfileUser extends ProfileEvent {}
 
 final class DoLogOutProfileUser extends ProfileEvent {}
+
+final class DoNotifyChangePasswordProfileUser extends ProfileEvent {}

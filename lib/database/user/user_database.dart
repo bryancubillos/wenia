@@ -28,7 +28,7 @@ class UserDatabase extends DatabaseBuilderAbstract {
 
   // [Constuctor]
   @override
-  Future<void> initDatabase() async {
+  Future<bool> initDatabase() async {
     final documentsDirectory = await DirectoryUtil. getDirectory(DatabaseConstant.userDatabaseName);
     final path = join(documentsDirectory.path, DatabaseConstant.userDatabaseName);
     
@@ -45,7 +45,9 @@ class UserDatabase extends DatabaseBuilderAbstract {
       await deleteDatabase();
       
       isStoreOpened = false;
-    }    
+    }
+
+    return isStoreOpened;
   }
   
   Future _onCreate(Database db, int version) async {

@@ -58,4 +58,19 @@ class SecurityRemoteDatasource {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
+  Future<bool> changePassword(String newPassword) async {
+    bool result = false;
+
+    try {
+      await _firebaseAuth.currentUser?.updatePassword(newPassword);
+      result = true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return result;
+  }
 }
