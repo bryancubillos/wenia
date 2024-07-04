@@ -7,7 +7,7 @@ sealed class SecurityState {
 final class SecurityInitial extends SecurityState {}
 
 final class SecurityLoaded extends SecurityState {
-  final User? user;
+  final UserEntity? user;
 
   const SecurityLoaded(this.user);
 }

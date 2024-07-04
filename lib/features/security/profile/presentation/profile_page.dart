@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             getAvatarIcon(),
                             const SizedBox(height: 15),
                             getUserName(state.userLoaded?.email ?? ""),
-                            getUserEmail(state.userLoaded?.displayName ?? "")
+                            getUserEmail(state.userLoaded?.name ?? "")
                           ]
                         );
                       }

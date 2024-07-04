@@ -6,7 +6,6 @@ class UserDatabaseMapping {
     Map<String, dynamic> userRow = <String, dynamic> 
     {
       "email": user.email,
-      "password": user.password,
       "name": user.name,
       "id": user.id,
       "birthDate": user.birthDate,
@@ -19,7 +18,6 @@ class UserDatabaseMapping {
     UserEntity userObject = UserEntity();
 
     userObject.email = user["email"];
-    userObject.password = user["password"];
     userObject.name = user["name"];
     userObject.id = user["id"];
     userObject.birthDate = user["birthDate"];

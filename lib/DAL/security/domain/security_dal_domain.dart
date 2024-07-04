@@ -27,7 +27,6 @@ class SecurityDAL {
 
     if(user != null) {
       UserEntity localUser = UserEntity();
-      localUser.user = user;
       localUser.email = user.email;
 
       int saveResult = await SecurityLocalDatasource().saveUser(localUser);
@@ -49,19 +48,17 @@ class SecurityDAL {
   }
 
   // [User]
-  Future<User?> getCurrentUser() async {
-    User? user = null;
-    // = SecurityRemoteDatasource().currentUser;
+  Future<UserEntity?> getCurrentUser() async {
+    UserEntity? currentUser;
+    
+    UserEntity? localUser = await SecurityLocalDatasource().getUser();
+    User? remoteUser = SecurityRemoteDatasource().currentUser;
 
-    if(user == null) {
-      UserEntity? localUser = await SecurityLocalDatasource().getUser();
-
-      if(localUser != null) {
-        user = localUser.user;
-      }
+    if(localUser != null && remoteUser != null) {
+      currentUser = localUser;
     }
 
-    return user;
+    return currentUser;
   }
 
   // [Database]

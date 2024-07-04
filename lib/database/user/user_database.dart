@@ -29,7 +29,7 @@ class UserDatabase extends DatabaseBuilderAbstract {
   // [Constuctor]
   @override
   Future<void> initDatabase() async {
-    final documentsDirectory = await DirectoryUtil.getDirectory(DatabaseConstant.userDatabaseName);
+    final documentsDirectory = await DirectoryUtil. getDirectory(DatabaseConstant.userDatabaseName);
     final path = join(documentsDirectory.path, DatabaseConstant.userDatabaseName);
     
     try {
@@ -52,15 +52,13 @@ class UserDatabase extends DatabaseBuilderAbstract {
     await db.execute('''
             CREATE TABLE ${UserDatabaseModel.table} (
               ${UserDatabaseModel.columnId} INTEGER PRIMARY KEY,
-              ${UserDatabaseModel.columnEmail} TEXT
+              ${UserDatabaseModel.columnEmail} TEXT,
+              ${UserDatabaseModel.columnName} TEXT,
+              ${UserDatabaseModel.columnUserId} TEXT,
+              ${UserDatabaseModel.columnBirthDate} TEXT
             )
             ''');
   }
-
-  // ${UserDatabaseModel.columnName} TEXT,
-  // ${UserDatabaseModel.columnUserid} TEXT,
-  // ${UserDatabaseModel.columnBirthDate} TEXT,
-  // ${UserDatabaseModel.columnUser} TEXT PRIMARY KEY,
 
   // [Close]
   @override

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:wenia/DAL/security/domain/security_dal_domain.dart';
 import 'package:wenia/core/Entities/common/result_entity.dart';
+import 'package:wenia/core/Entities/security/user_entity.dart';
 import 'package:wenia/core/config/environment_config.dart';
 
 class SecurityBll {
@@ -42,7 +43,7 @@ class SecurityBll {
     return SecurityDAL().signOut();
   }
 
-  Future<User?> getCurrentUser() async {
+  Future<UserEntity?> getCurrentUser() async {
     return SecurityDAL().getCurrentUser();
   }
 
