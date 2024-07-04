@@ -29,6 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(LoginError(CultureService().getLocalResource("login-error-message")));
     }
     else {
+      
       // Set state Result
       emit(LoginSuccess(currentUser));
     }

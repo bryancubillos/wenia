@@ -29,6 +29,9 @@ dependencies:
   # required
   path_provider_foundation: ^2.4.0
 
+  #Database
+  sqflite: '2.3.0'
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

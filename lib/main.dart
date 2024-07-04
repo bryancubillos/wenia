@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:wenia/BLL/common/common_database.dart';
 import 'package:wenia/core/config/environment_config.dart';
 import 'package:wenia/core/router/routes.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
@@ -20,6 +21,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // Bloc
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<MenuBloc>(

@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 class SecurityRemoteDatasource {
   // [Properties]
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User? get currentUser => _firebaseAuth.currentUser;
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
-
-  // [end point]
 
   // [Singleton]
   static final SecurityRemoteDatasource _instance = SecurityRemoteDatasource._constructor();
@@ -20,19 +19,40 @@ class SecurityRemoteDatasource {
 
   // [Methods]
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
-    final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    return userCredential.user;
+    User? user;
+
+    try {
+      final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
+    } catch (e) {
+      if(kDebugMode) {
+        print(e);
+      }
+    }
+
+    return user;
   }
 
   Future<User?> createUserWithEmailAndPassword(String email, String password) async {
-    final UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    return userCredential.user;
+    User? user;
+
+    try {
+      final UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
+
+    } catch (e) {
+      if(kDebugMode) {
+        print(e);
+      }
+    }
+
+    return user;
   }
 
   Future<void> signOut() async {

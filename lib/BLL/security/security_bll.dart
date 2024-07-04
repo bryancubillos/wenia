@@ -22,11 +22,7 @@ class SecurityBll {
     User? user;
     
     if(email.isNotEmpty || password.isNotEmpty){
-      try {
-        user = await SecurityDAL().signInWithEmailAndPassword(email, password);
-      } catch (e) {
-        print(e);
-      }
+      user = await SecurityDAL().signInWithEmailAndPassword(email, password);
     }
 
     return user;
@@ -36,11 +32,7 @@ class SecurityBll {
     User? user;
     
     if(email.isNotEmpty || password.isNotEmpty){
-      try {
-        user = await SecurityDAL().createUserWithEmailAndPassword(email, password);
-      } catch (e) {
-        print(e);
-      }
+      user = await SecurityDAL().createUserWithEmailAndPassword(email, password);
     }
 
     return user;

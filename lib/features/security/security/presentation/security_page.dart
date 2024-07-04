@@ -17,6 +17,9 @@ class _SecurityPageState extends State<SecurityPage> {
   void initState() {
     super.initState();
 
+    // Start Database
+    context.read<SecurityBloc>().add(DoInitProject());
+
     // Get menu options
     context.read<SecurityBloc>().add(DoGetSecurityUser());
   }
