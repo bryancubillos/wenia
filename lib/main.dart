@@ -64,7 +64,11 @@ class MyApp extends StatelessWidget {
  * 
  * Usuario:
  * 
+ * - Implementar base de datos (Dynamo, Firestore, local DB)
+ * 
+ * User Profile:
+ * 
  * - Cambiar de contraseña en Firebase
- * - Local Database to save [Nombre, Cedula, Cumpleaños] + Id de firebase
+ * - Update [Nombre, Cedula, Cumpleaños] + Id de firebase
  * 
  */
