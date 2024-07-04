@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "269506304236",
+    "project_id": "wenia-8c737",
+    "storage_bucket": "wenia-8c737.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269506304236:android:7beadc9834a37c37cd2dc9",
+        "android_client_info": {
+          "package_name": "com.example.wenia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtpDy2ti9YUNnaesL-2pu2ZWaiFTI2tJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269506304236:android:074acd3bc7b77481cd2dc9",
+        "android_client_info": {
+          "package_name": "com.wenia.aoo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtpDy2ti9YUNnaesL-2pu2ZWaiFTI2tJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269506304236:android:ed9ad2c565302f98cd2dc9",
+        "android_client_info": {
+          "package_name": "com.wenia.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtpDy2ti9YUNnaesL-2pu2ZWaiFTI2tJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

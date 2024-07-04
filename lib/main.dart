@@ -1,0 +1,70 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:wenia/core/config/environment_config.dart';
+import 'package:wenia/core/router/routes.dart';
+import 'package:wenia/core/utils/style/theme_app.dart';
+import 'package:wenia/features/common/menu/bloc/menu_bloc.dart';
+import 'package:wenia/features/security/login/bloc/login_bloc.dart';
+import 'package:wenia/features/security/new_account/bloc/new_account_bloc.dart';
+import 'package:wenia/features/security/profile/bloc/profile_bloc.dart';
+import 'package:wenia/features/security/security/bloc/security_bloc.dart';
+import 'package:wenia/firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Firebase authentication
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<MenuBloc>(
+        create: (BuildContext context) => MenuBloc(),
+      ),
+      BlocProvider<LoginBloc>(
+        create: (BuildContext context) => LoginBloc(),
+      ),
+      BlocProvider<SecurityBloc>(
+        create: (BuildContext context) => SecurityBloc(),
+      ),
+      BlocProvider<ProfileBloc>(
+        create: (BuildContext context) => ProfileBloc(),
+      ),
+      BlocProvider<NewAccountBloc>(
+        create: (BuildContext context) => NewAccountBloc(),
+      ),
+    ],
+    child: const MyApp()
+  ));  
+}
+
+class MyApp extends StatelessWidget {
+
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: EnvironmentConfig.weniaAppTitle,
+      initialRoute: Routes.security,
+      routes: Routes.getAppRoutes(),
+      onGenerateRoute: Routes.onGenerateRoute,
+      theme: ThemeApp.lightTheme,
+    );
+  }
+}
+
+/**
+ * TODO:
+ * 
+ * Usuario:
+ * 
+ * - Cambiar de contraseña en Firebase
+ * - Local Database to save [Nombre, Cedula, Cumpleaños] + Id de firebase
+ * 
+ */
