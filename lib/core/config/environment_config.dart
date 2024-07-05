@@ -7,4 +7,6 @@ class EnvironmentConfig {
   static const int maxPasswordLength = 15;
   static const int minAccountNameLength = 6;
   static const int minPasswordLength = 6;
+  // Cripto
+  static const int keepCoinsByTimeInMinutesDuration = 10;
 }

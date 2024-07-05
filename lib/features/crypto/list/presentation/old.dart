@@ -111,17 +111,14 @@ class _CryptoListPageState extends State<CryptoListPage> {
         if (state is CryptoListLoaded) {
           if (state.coins.isNotEmpty) {
             return ListView.builder(
-              key: ValueKey<bool>(_sortDescending),
+              key: ValueKey<bool>(_sortDescending), // Agrega esta línea
               itemCount: state.coins.length,
               itemBuilder: (context, index) {
                 return CardPage(coin: state.coins[index]);
               },
             );
           } else {
-            return Center(
-              child: Text(CultureService().getLocalResource("crypto-no-data"),
-              style: ThemeApp.textTheme.bodyMedium?.copyWith(color: ThemeApp.black))
-            );
+            return const Center(child: Text("No coins available"));
           }
         }
 
