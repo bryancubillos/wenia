@@ -5,3 +5,11 @@ sealed class CryptoListState {
 }
 
 final class CryptoListInitial extends CryptoListState {}
+
+final class CryptoListLoading extends CryptoListState {}
+
+final class CryptoListLoaded extends CryptoListState {
+  final List<CoinEntity> coins;
+
+  const CryptoListLoaded(this.coins);
+}

@@ -1,3 +1,6 @@
+import 'package:wenia/DAL/crypto/data/crypto_remote_datasource.dart';
+import 'package:wenia/core/Entities/common/result_entity.dart';
+
 class CryptoDAL {
   // [Properties]
 
@@ -12,4 +15,8 @@ class CryptoDAL {
   CryptoDAL._constructor();
 
   // [Methods]
+  Future<ResultEntity> getCoins() async {
+    return await CryptoRemoteDatasource().getCoins();
+  }
+  
 }

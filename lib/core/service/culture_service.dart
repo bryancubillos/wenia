@@ -191,6 +191,9 @@ class CultureService {
     "crypto-search" : [{
       "es":"Buscar"
     }],
+    "crypto-no-data" : [{
+      "es":"Sin información"
+    }],
   };
 
   // [Singleton]

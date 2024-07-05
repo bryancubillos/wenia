@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wenia/core/Entities/crypto/coin_entity.dart';
 
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/crypto/card/presentation/card_page.dart';
+import 'package:wenia/features/crypto/list/bloc/crypto_list_bloc.dart';
 
 class CryptoListPage extends StatefulWidget {
   const CryptoListPage({super.key});
@@ -13,6 +15,16 @@ class CryptoListPage extends StatefulWidget {
 }
 
 class _CryptoListPageState extends State<CryptoListPage> {
+
+   // [Init state]
+  @override
+  void initState() {
+    super.initState();
+
+    // Get current user
+    context.read<CryptoListBloc>().add(GetCoins());
+  }
+
   // [Properties]
   bool _sortAscending = true;
 
@@ -31,8 +43,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
         child: Column(
           children: [
             getHeaderFilterOptions(),
-            const SizedBox(height: 15),
-            CardPage(coin: CoinEntity.empty())
+            getCoins(context)            
           ])
         )
       );
@@ -75,6 +86,38 @@ class _CryptoListPageState extends State<CryptoListPage> {
           )
         ],
       ),
+    );
+  }
+
+  Widget getCoins(BuildContext context) {
+    List<Widget> coinWidgets = [];
+
+    return BlocBuilder<CryptoListBloc, CryptoListState>(
+      buildWhen: (previous, current) => current is CryptoListLoaded,
+      builder: (context, state) {
+        if(state is CryptoListLoaded) {
+          
+          if(state.coins.isNotEmpty) {
+            coinWidgets = state.coins.map((coin) => CardPage(coin: coin)).toList();
+          }
+
+          return 
+          Expanded(
+            child: ListView.builder(
+              itemCount: coinWidgets.length,
+              itemBuilder: (context, index) {
+                return coinWidgets[index];
+              }
+            )
+          );
+
+        }
+        else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }
     );
   }
 }

@@ -3,6 +3,8 @@ class ResultEntity {
   bool result;
   String message;
   String cultureMessage;
+  int? statusCode;
+  dynamic data;
 
   ResultEntity({
     required this.id,
@@ -16,4 +18,13 @@ class ResultEntity {
       result = false,
       message = "",
       cultureMessage = "";
+
+  ResultEntity fromJson(Map<String, dynamic> jsonMap) {
+    return ResultEntity(
+      id: jsonMap['id'],
+      result: jsonMap['result'],
+      message: jsonMap['message'],
+      cultureMessage: jsonMap['cultureMessage'],
+    );
+  }
 }
