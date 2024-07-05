@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:wenia/features/common/menu/presentation/menu_page.dart';
 import 'package:wenia/features/common/welcome/presentation/welcome_page.dart';
+import 'package:wenia/features/security/account/presentation/account_page.dart';
 import 'package:wenia/features/security/change_password/presentation/change_password_page.dart';
 import 'package:wenia/features/security/login/presentation/security_login_page.dart';
 import 'package:wenia/features/security/new_account/presentation/new_account_page.dart';
@@ -20,6 +21,7 @@ class Routes {
   static const String register = '/register';
   static const String profile = '/profile';
   static const String settings = '/settings';
+  static const String account = '/account';
 
   // Common
   static const String welcome = '/welcome';
@@ -32,8 +34,11 @@ class Routes {
       // Security
       login: (context) => const SecurityLoginPage(),
       changePassword: (context) => const ChangePasswordPage(),
+      
+      // Account
       register: (context) => const NewAccountPage(),
       security: (context) => const SecurityPage(),
+      account: (context) => const AccountPage(),
       
       // Settings
       profile: (context) => Container(),
@@ -55,6 +60,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const SecurityLoginPage());
       case security:
         return MaterialPageRoute(builder: (context) => const SecurityPage());
+      case account:
+        return MaterialPageRoute(builder: (context) => const AccountPage());
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }

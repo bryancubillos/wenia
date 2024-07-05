@@ -130,6 +130,32 @@ class CultureService {
     "change-password-success-message" : [{
       "es":"¡Contraseña cambiada con éxito!, por favor inicia sesión nuevamente"
     }],
+
+    // Account
+    "account-title": [{
+      "es":"Cuenta"
+    }],
+    "account-email" : [{
+      "es":"Correo electrónico"
+    }],
+    "account-name" : [{
+      "es":"Nombre"
+    }],
+    "account-id" : [{
+      "es":"ID"
+    }],
+    "account-birthday" : [{
+      "es":"Fecha de nacimiento"
+    }],
+    "account-save-action" : [{
+      "es":"Guardar"
+    }],
+    "account-save-success" : [{
+      "es":"Usuario guardado con éxito"
+    }],
+    "account-save-error" : [{
+      "es":"¡Ups lo sentimos!, ha ocurrido un error al guardar el usuario"
+    }],
   };
 
   // [Singleton]

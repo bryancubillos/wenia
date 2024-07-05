@@ -19,6 +19,10 @@ class SecurityLocalDatasource {
     return UserDatabase().saveUser(user);
   }
 
+  Future<int> updateUser(UserEntity user) async {
+    return UserDatabase().updateUser(user);
+  }
+
   Future<UserEntity?> getUser() async {
     return UserDatabase().getUser();
   }

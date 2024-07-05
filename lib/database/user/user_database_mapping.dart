@@ -8,7 +8,7 @@ class UserDatabaseMapping {
       "email": user.email,
       "name": user.name,
       "userId": user.userId,
-      "birthDate": user.birthDate,
+      // "birthDate": user.birthDate,
     };
 
     return userRow;
@@ -20,7 +20,7 @@ class UserDatabaseMapping {
     userObject.email = user["email"];
     userObject.name = user["name"];
     userObject.userId = user["userId"];
-    userObject.birthDate = user["birthDate"];
+    // userObject.birthDate = user["birthDate"];
 
     return userObject;
   }

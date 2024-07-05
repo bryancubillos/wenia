@@ -208,6 +208,8 @@ class _ProfilePageState extends State<ProfilePage> {
       false,
       true,
       () {
+        // Go to account page
+        Navigator.pushNamed(context, Routes.account);
       });
   }
 

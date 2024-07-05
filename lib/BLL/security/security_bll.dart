@@ -63,6 +63,23 @@ class SecurityBll {
     return result;
   }
 
+  Future<ResultEntity> saveUser(UserEntity user) async {
+    ResultEntity result = ResultEntity.empty();
+    result.result = false;
+
+    UserEntity? localUser = await SecurityBll().getCurrentUser();
+    
+    // Keep all information
+    if(localUser != null) {
+      user.email = localUser.email;
+    }
+
+    // Save user
+    result = await SecurityDAL().updateUser(user);
+
+    return result;
+  }
+
   // [Functions]
   Future<ResultEntity> itsPossibleSaveAccount(String email, String password, bool verifyAge) async {
     ResultEntity result = ResultEntity.empty();

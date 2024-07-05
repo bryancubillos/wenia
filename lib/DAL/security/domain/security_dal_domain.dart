@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wenia/DAL/security/data/security_local_datasource.dart';
 
 import 'package:wenia/DAL/security/data/security_remote_datasource.dart';
+import 'package:wenia/core/Entities/common/result_entity.dart';
 import 'package:wenia/core/Entities/security/user_entity.dart';
-import 'package:wenia/database/user/user_database.dart';
 
 class SecurityDAL {
   // [Properties]
@@ -63,6 +63,15 @@ class SecurityDAL {
     }
 
     return currentUser;
+  }
+
+  Future<ResultEntity> updateUser(UserEntity user) async {
+    ResultEntity result = ResultEntity.empty();
+    
+    result.id = await SecurityLocalDatasource().updateUser(user);
+    result.result = result.id > 0;
+
+    return result;
   }
 
   // [Database]

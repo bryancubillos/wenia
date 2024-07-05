@@ -6,6 +6,7 @@ import 'package:wenia/core/config/environment_config.dart';
 import 'package:wenia/core/router/routes.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/common/menu/bloc/menu_bloc.dart';
+import 'package:wenia/features/security/account/bloc/account_bloc.dart';
 import 'package:wenia/features/security/change_password/bloc/change_password_bloc.dart';
 import 'package:wenia/features/security/login/bloc/login_bloc.dart';
 import 'package:wenia/features/security/new_account/bloc/new_account_bloc.dart';
@@ -42,6 +43,9 @@ void main() async {
       BlocProvider<ChangePasswordBloc>(
         create: (BuildContext context) => ChangePasswordBloc(),
       ),
+      BlocProvider<AccountBloc>(
+        create: (BuildContext context) => AccountBloc(),
+      ),
     ],
     child: const MyApp()
   ));  
@@ -69,6 +73,10 @@ class MyApp extends StatelessWidget {
  * 
  * User Profile:
  * 
- * - Update [Nombre, id, Cumpleaños]
+ * - Nueva variable de logged
+ * - No borrar cuenta solo update variable
+ * 
+ * - Update [Cumpleaños]
+ * - Guardar correctamente el cumpleaños
  * 
  */
