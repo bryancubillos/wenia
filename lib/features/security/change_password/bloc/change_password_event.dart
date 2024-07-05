@@ -5,7 +5,9 @@ sealed class ChangePasswordEvent {
 }
 
 class DoChangePassword extends ChangePasswordEvent {
+  final String currentPassword;
   final String newPassword;
+  final String repeatPassword;
 
-  const DoChangePassword(this.newPassword);
+  const DoChangePassword(this.currentPassword, this.newPassword, this.repeatPassword);
 }

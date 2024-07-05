@@ -71,9 +71,5 @@ class MyApp extends StatelessWidget {
 /**
  * TODO:
  * 
- * User Profile:
- * 
- * - Update [Cumpleaños]
- * - Guardar correctamente el cumpleaños
  * 
  */

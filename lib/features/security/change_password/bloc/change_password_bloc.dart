@@ -16,7 +16,7 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> 
     emit(ChangePasswordLoading());
 
     // Change password
-    ResultEntity result = await SecurityBll().changePassword(event.newPassword);
+    ResultEntity result = await SecurityBll().changePassword(event.currentPassword, event.newPassword, event.repeatPassword);
     
     if(result.result) {
       emit(ChangePasswordSuccess(true));

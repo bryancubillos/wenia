@@ -73,4 +73,24 @@ class SecurityRemoteDatasource {
 
     return result;
   }
+
+  Future<bool> reauthenticateUser(String password) async {
+    bool result = false;
+
+    try {
+      User? user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        AuthCredential temporaryCredential = EmailAuthProvider.credential(email: user.email ?? "", password: password);
+        await user.reauthenticateWithCredential(temporaryCredential);
+        result = true;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Re-authentication failed: $e');
+      }
+    }
+
+    return result;
+  }
 }

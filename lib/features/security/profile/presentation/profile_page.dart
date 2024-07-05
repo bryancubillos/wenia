@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:wenia/core/router/routes.dart';
 import 'package:wenia/core/service/culture_service.dart';
+import 'package:wenia/core/utils/device/size_util.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/common/message/message.dart';
 import 'package:wenia/features/security/profile/bloc/profile_bloc.dart';
@@ -35,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: <Widget>[
           // Header
           Container(
-            padding: const EdgeInsets.only(top: 80, bottom: 20),
+            padding: SizeUtil().isLandscape(context) ? const EdgeInsets.only(top: 80, bottom: 20) : const EdgeInsets.only(top: 20, bottom: 20),
               color: ThemeApp.secondColor,
               child: Center(
                 child: BlocListener<ProfileBloc, ProfileState>(
@@ -95,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 getGoOut(),
               ]
             ),
-          ),
+          )
         ]
       ),
     );

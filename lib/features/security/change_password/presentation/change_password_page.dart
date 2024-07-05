@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:wenia/core/config/environment_config.dart';
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
@@ -17,8 +18,12 @@ class ChangePasswordPage extends StatefulWidget {
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   // [Properties]
-  bool _hidePassword = true;
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _repeatPasswordController = TextEditingController();
+  bool _hidePassword = true;
+  bool _hideNewPassword = true;
+  bool _hideRepeatPassword = true;
 
   // [Contructor]
   @override
@@ -48,7 +53,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         child: SafeArea(
           child: Column(
             children: [
+              getCurrentPassword(),
               getNewPassword(),
+              getRepeatPassword(),
               const SizedBox(height: 15),
               getLoginButton(),
             ]
@@ -59,7 +66,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   }
 
   // [Methods]
-  Widget getNewPassword()  {
+  Widget getPasswordBase(String cultureTitle, TextEditingController currentController, VoidCallback onPressedHidePassword, bool hideText)  {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(left: 14, right: 18, top: 4, bottom: 4),
@@ -69,8 +76,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
-        controller: _passwordController,
-        obscureText: _hidePassword,
+        controller: currentController,
+        obscureText: hideText,
         inputFormatters: [
           FilteringTextInputFormatter.deny(' '),
           FilteringTextInputFormatter.deny('\n'),
@@ -80,21 +87,49 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         maxLength: EnvironmentConfig.maxPasswordLength,
         style: ThemeApp.textTheme.bodyLarge?.copyWith(color: Colors.black),
         decoration: InputDecoration(
-          labelText: CultureService().getLocalResource("security-change-password-action"),
+          labelText: CultureService().getLocalResource(cultureTitle),
+          // "security-change-password-action"
           border: InputBorder.none,
           counterText: "",
           labelStyle: ThemeApp.textTheme.bodyMedium?.copyWith(color: ThemeApp.thirdColor),
           suffixIcon: IconButton(
             iconSize: 18,
-            icon: Icon(_hidePassword ? Icons.visibility_off : Icons.visibility,
-              color: ThemeApp.thirdColor),
-            onPressed: () {
-              setState(() => _hidePassword = !_hidePassword);
-            },
+            icon: Icon(hideText ? Icons.visibility_off : Icons.visibility, color: ThemeApp.thirdColor),
+            onPressed: onPressedHidePassword
           ),
         ),
       ),
     );
+  }
+
+  Widget getCurrentPassword()  {
+    return getPasswordBase(
+      "security-change-password-current-password",
+      _passwordController,
+      () {
+        setState(() => _hidePassword = !_hidePassword);
+      },
+      _hidePassword);
+  }
+
+  Widget getNewPassword()  {
+    return getPasswordBase(
+      "security-change-password-new-password",
+      _newPasswordController,
+      () {
+        setState(() => _hideNewPassword = !_hideNewPassword);
+      },
+      _hideNewPassword);
+  }
+
+  Widget getRepeatPassword()  {
+    return getPasswordBase(
+      "security-change-password-repeat-password",
+      _repeatPasswordController,
+      () {
+        setState(() => _hideRepeatPassword = !_hideRepeatPassword);
+      },
+      _hideRepeatPassword);
   }
 
   Widget getLoginButton() {
@@ -107,7 +142,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           return ElevatedButton(
               onPressed: () {
                 BlocProvider.of<ChangePasswordBloc>(context).add(DoChangePassword(
-                  _passwordController.text)
+                  _passwordController.text,
+                  _newPasswordController.text,
+                  _repeatPasswordController.text)
                 );
               },
               style: ElevatedButton.styleFrom(

@@ -60,8 +60,14 @@ class SecurityDAL {
     }
   }
 
-  Future<bool> changePassword(String newPassword) async {
-    return await SecurityRemoteDatasource().changePassword(newPassword);
+  Future<bool> changePassword(String currentPassword, String newPassword) async {
+    bool result = false;
+
+    if(await SecurityRemoteDatasource().reauthenticateUser(currentPassword)) {
+      result = await SecurityRemoteDatasource().changePassword(newPassword);
+    }
+    
+    return result;
   }
   
   // [User]
