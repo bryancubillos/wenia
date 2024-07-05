@@ -183,6 +183,14 @@ class CultureService {
     "account-save-error" : [{
       "es":"¡Ups lo sentimos!, ha ocurrido un error al guardar el usuario"
     }],
+
+    // Crypto
+    "crypto-title" : [{
+      "es":"Monedas"
+    }],
+    "crypto-search" : [{
+      "es":"Buscar"
+    }],
   };
 
   // [Singleton]
