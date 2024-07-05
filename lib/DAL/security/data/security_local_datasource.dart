@@ -31,6 +31,10 @@ class SecurityLocalDatasource {
     await UserDatabase().deleteUser();
   }
 
+  Future<int> usersRowCount() async {
+    return UserDatabase().usersRowCount();
+  }
+
   // [Database]
   Future<bool> initDatabase() async {
     return await UserDatabase().initDatabase();

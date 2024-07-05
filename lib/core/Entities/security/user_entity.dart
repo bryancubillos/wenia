@@ -3,6 +3,7 @@ class UserEntity {
   String? name;
   String? userId;
   DateTime? birthDate;
+  int? isLogged;
 
   UserEntity();
 
@@ -13,6 +14,7 @@ class UserEntity {
     userEntity.name = map['name'];
     userEntity.userId = map['userId'];
     userEntity.birthDate = map['birthDate'];
+    userEntity.isLogged = map['isLogged'];
     
     return userEntity;
   }
@@ -23,6 +25,7 @@ class UserEntity {
       'name': name,
       'userId': userId,
       'birthDate': birthDate,
+      'isLogged': isLogged
     };
   } 
 }

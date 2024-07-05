@@ -9,6 +9,7 @@ class UserDatabaseMapping {
       "name": user.name,
       "userId": user.userId,
       // "birthDate": user.birthDate,
+      "isLogged": user.isLogged
     };
 
     return userRow;
@@ -21,6 +22,7 @@ class UserDatabaseMapping {
     userObject.name = user["name"];
     userObject.userId = user["userId"];
     // userObject.birthDate = user["birthDate"];
+    userObject.isLogged = user["isLogged"];
 
     return userObject;
   }

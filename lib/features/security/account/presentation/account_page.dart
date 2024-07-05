@@ -7,6 +7,7 @@ import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/common/message/message.dart';
 import 'package:wenia/features/security/account/bloc/account_bloc.dart';
+import 'package:wenia/features/security/profile/bloc/profile_bloc.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -44,7 +45,10 @@ class _AccountPageState extends State<AccountPage> {
         listener: (context, state) {
           if(state is AccountSuccess) {
             if(state.message != null && state.message!.isNotEmpty) {
-              Message().showMessage(context, CultureService().getLocalResource(state.message ?? ""));
+              Message().showMessageWithAction(context, CultureService().getLocalResource(state.message ?? ""), () {
+                // Update profile user
+                BlocProvider.of<ProfileBloc>(context).add(DoGetProfileUser());
+              });
             }
           }
           else if(state is AccountError) {

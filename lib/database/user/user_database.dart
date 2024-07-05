@@ -57,7 +57,8 @@ class UserDatabase extends DatabaseBuilderAbstract {
               ${UserDatabaseModel.columnEmail} TEXT,
               ${UserDatabaseModel.columnName} TEXT,
               ${UserDatabaseModel.columnUserId} TEXT,
-              ${UserDatabaseModel.columnBirthDate} TEXT
+              ${UserDatabaseModel.columnBirthDate} TEXT,
+              ${UserDatabaseModel.columnIsLogged} INTEGER
             )
             ''');
   }

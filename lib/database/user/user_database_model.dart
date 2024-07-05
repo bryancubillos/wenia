@@ -8,9 +8,10 @@ class UserDatabaseModel {
   static const table = 'userAccount';
 
   static const columnId = '_id';
-
+  
   static const columnEmail = 'email';
   static const columnName = 'name';
   static const columnUserId = 'userId';
   static const columnBirthDate = 'birthDate';
+  static const columnIsLogged = 'isLogged';
 }

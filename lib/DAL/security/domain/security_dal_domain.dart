@@ -26,10 +26,17 @@ class SecurityDAL {
     User? user = await SecurityRemoteDatasource().signInWithEmailAndPassword(email, password);
 
     if(user != null) {
-      UserEntity localUser = UserEntity();
+      UserEntity localUser = await SecurityLocalDatasource().getUser() ?? UserEntity();
       localUser.email = user.email;
-
-      await SecurityLocalDatasource().saveUser(localUser);
+      localUser.isLogged = 1;
+      
+      // If the user there arent in the local database, save it
+      if(await SecurityLocalDatasource().usersRowCount() == 0) {
+        await SecurityLocalDatasource().saveUser(localUser);
+      }
+      else {
+        await SecurityLocalDatasource().updateUser(localUser);
+      }
     }
 
     return user;
@@ -44,7 +51,13 @@ class SecurityDAL {
     await SecurityRemoteDatasource().signOut();
 
     // Local
-    await SecurityLocalDatasource().signOut();
+    UserEntity? user = await SecurityLocalDatasource().getUser();
+
+    if(user != null) {
+      // Update user logic false to not logged
+      user.isLogged = 0;
+      await SecurityLocalDatasource().updateUser(user);
+    }
   }
 
   Future<bool> changePassword(String newPassword) async {

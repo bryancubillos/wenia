@@ -73,9 +73,6 @@ class MyApp extends StatelessWidget {
  * 
  * User Profile:
  * 
- * - Nueva variable de logged
- * - No borrar cuenta solo update variable
- * 
  * - Update [Cumpleaños]
  * - Guardar correctamente el cumpleaños
  * 
