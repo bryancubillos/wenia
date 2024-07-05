@@ -4,11 +4,11 @@ class CultureService {
 
   final Map<String, dynamic> _localResources = {
     // Menu
-    "menu-home" : [{
-      "es":"Inicio"
+    "menu-coins" : [{
+      "es":"Monedas"
     }],
-    "menu-new" : [{
-      "es":"Nuevo"
+    "menu-favorites" : [{
+      "es":"Favoritas"
     }],
     "menu-profile" : [{
       "es":"Perfil"

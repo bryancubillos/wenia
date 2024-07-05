@@ -27,12 +27,12 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     // Prepare the menu items
     MenuBloc.menuItems = [
       BottomNavigationBarItem(
-        icon: const Icon(Icons.home),
-        label: CultureService().getLocalResource('menu-home'),
+        icon: const Icon(Icons.monetization_on),
+        label: CultureService().getLocalResource('menu-coins'),
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.add),
-        label: CultureService().getLocalResource('menu-new'),
+        icon: const Icon(Icons.star),
+        label: CultureService().getLocalResource('menu-favorites'),
       ),
       BottomNavigationBarItem(
         icon: const Icon(Icons.person),
