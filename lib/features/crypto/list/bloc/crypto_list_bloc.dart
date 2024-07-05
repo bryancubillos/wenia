@@ -8,6 +8,7 @@ part 'crypto_list_state.dart';
 class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
   // [Properties]
   bool _sortDescending = true;
+  String _searchValue = "";
 
   // [Constructor]
   CryptoListBloc() : super(CryptoListInitial()) {
@@ -19,9 +20,11 @@ class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
     emit(CryptoListLoading());
 
     _sortDescending = event.sortDescending;
+    _searchValue = event.search;
 
     // Get coins
-    List<CoinEntity> coins = await CryptoBll().getCoins(_sortDescending);
+    List<CoinEntity> coins = [];
+    coins = await CryptoBll().getCoins(_sortDescending, _searchValue);
 
     emit(CryptoListLoaded(coins));
   }

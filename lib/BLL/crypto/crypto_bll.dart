@@ -16,26 +16,28 @@ class CryptoBll {
   CryptoBll._constructor();
 
   // [Methods]
-  Future<List<CoinEntity>> getCoins(bool sortDescending) async {
+  Future<List<CoinEntity>> getCoins(bool sortDescending, String searchValue) async {
     ResultEntity result = await CryptoDAL().getCoins();
+    List<CoinEntity> coins = [];
 
     if(result.result) {
+      
+      // Datasource
+      coins = result.data;
+
+      // Filter coins
+      if(searchValue.isNotEmpty) {
+        coins = coins.where((coin) => coin.name.toLowerCase().contains(searchValue.toLowerCase())).toList();
+      }
+
       // Sort coins
       if(sortDescending) {
-        List<CoinEntity> coinsDesc = result.data;
-
-        coinsDesc.sort((a, b) => b.currentPrice.compareTo(a.currentPrice));
-
-        return coinsDesc;
+        coins.sort((a, b) => b.currentPrice.compareTo(a.currentPrice));
       } else {
-        List<CoinEntity> coinsAsc = result.data;
-
-        coinsAsc.sort((a, b) => a.currentPrice.compareTo(b.currentPrice));
-
-        return coinsAsc;
-      }
+        coins.sort((a, b) => a.currentPrice.compareTo(b.currentPrice));
+      }      
     }
 
-    return [];
+    return coins;
   }
 }

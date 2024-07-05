@@ -9,4 +9,5 @@ class EnvironmentConfig {
   static const int minPasswordLength = 6;
   // Cripto
   static const int keepCoinsByTimeInMinutesDuration = 10;
+  static const int minSearchLength = 3;
 }

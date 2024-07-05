@@ -14,13 +14,23 @@ class CardPage extends StatefulWidget {
 
 class _CardPageState extends State<CardPage> {
   // [Properties]
-  late CoinEntity coin;
+  CoinEntity coin = CoinEntity.empty();
   bool _isFavorite = false;
 
   @override
   void initState() {
     super.initState();
     coin = widget.coin;
+  }
+
+  @override
+  void didUpdateWidget(CardPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.coin != oldWidget.coin) {
+      setState(() {
+        coin = widget.coin;
+      });
+    }
   }
 
   // [Constructor]
@@ -55,7 +65,7 @@ class _CardPageState extends State<CardPage> {
             ],
           ),
         ),
-      )
+      ),
     );
   }
 
@@ -78,22 +88,21 @@ class _CardPageState extends State<CardPage> {
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
-      )
+      ),
     );
   }
 
   Widget getFavoriteButton() {
-    return
-      IconButton(
-        icon: Icon(
-          _isFavorite ? Icons.star : Icons.star_border,
-          color: _isFavorite ? Colors.yellow : Colors.grey,
-        ),
-        onPressed: () {
-          setState(() {
-            _isFavorite = !_isFavorite;
-          });
-        },
+    return IconButton(
+      icon: Icon(
+        _isFavorite ? Icons.star : Icons.star_border,
+        color: _isFavorite ? Colors.yellow : Colors.grey,
+      ),
+      onPressed: () {
+        setState(() {
+          _isFavorite = !_isFavorite;
+        });
+      },
     );
   }
 
@@ -122,9 +131,9 @@ class _CardPageState extends State<CardPage> {
                 fontSize: 16,
               ),
             ),
-          )
-      ],
-      )
+          ),
+        ],
+      ),
     );
   }
 

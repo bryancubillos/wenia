@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wenia/core/config/environment_config.dart';
 
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
@@ -16,15 +20,25 @@ class CryptoListPage extends StatefulWidget {
 class _CryptoListPageState extends State<CryptoListPage> {
   // [Properties]
   bool _sortDescending = true;
+  String _searchValue = '';
+  Timer? _debounce;
 
   // [Init state]
   @override
   void initState() {
     super.initState();
     // Get current user
-    context.read<CryptoListBloc>().add(GetCoins(_sortDescending));
+    context.read<CryptoListBloc>().add(GetCoins(_sortDescending, ""));
   }
 
+  // [Dispose]
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  // [Constructor]
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +69,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
         children: [
           Expanded(
             child: TextField(
+              onChanged: _onSearchChanged,
               style: ThemeApp.textTheme.bodyMedium?.copyWith(color: ThemeApp.black),
               decoration: InputDecoration(
                 hintText: CultureService().getLocalResource("crypto-search"),
@@ -69,7 +84,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: ThemeApp.secondColor, width: 0.1),
+                  borderSide: const BorderSide(color: ThemeApp.secondColor, width: 1),
                 ),
               ),
             ),
@@ -79,7 +94,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
             onTap: () {
               setState(() {
                 _sortDescending = !_sortDescending;
-                context.read<CryptoListBloc>().add(GetCoins(_sortDescending));
+                context.read<CryptoListBloc>().add(GetCoins(_sortDescending, _searchValue));
               });
             },
             child: Container(
@@ -128,5 +143,22 @@ class _CryptoListPageState extends State<CryptoListPage> {
         return const Center(child: CircularProgressIndicator());
       },
     );
+  }
+
+  // [Functions]
+  void _onSearchChanged(String value) {
+    // Cancel previous debounce
+    if(_debounce?.isActive ?? false) {
+      _debounce?.cancel();
+    }
+
+    // litlle debounce
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      setState(() {
+        _searchValue = value;
+      });
+      
+      context.read<CryptoListBloc>().add(GetCoins(_sortDescending, _searchValue));
+    });
   }
 }
