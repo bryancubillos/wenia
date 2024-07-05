@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wenia/core/Entities/security/user_entity.dart';
 
+import 'package:wenia/core/Entities/security/user_entity.dart';
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/common/message/message.dart';
@@ -133,12 +133,6 @@ class _AccountPageState extends State<AccountPage> {
     return getFieldBase("account-id", _idController, user, false);
   }
 
-  Widget getUserBirthday(UserEntity user) {
-    _birthdayController.text = user.birthDate != null ? user.birthDate.toString() : "";
-
-    return getFieldBase("account-birthday", _birthdayController, user, false);
-  }
-
   Widget getSaveAction() {
     return BlocBuilder<AccountBloc, AccountState>(
       buildWhen: (previous, current) => current is AccountInitial || current is AccountLoaded,
@@ -152,7 +146,7 @@ class _AccountPageState extends State<AccountPage> {
                 
                 currentUser.name = _nameController.text;
                 currentUser.userId = _idController.text;
-                currentUser.birthDate = DateTime.now();
+                currentUser.birthDate = _birthdayController.text.isNotEmpty ? DateTime.parse(_birthdayController.text) : null;
                 
                 // Action save in BLOC
                 BlocProvider.of<AccountBloc>(context).add(DoAccountUpdate(currentUser));
@@ -169,5 +163,40 @@ class _AccountPageState extends State<AccountPage> {
               ));
         }
       });
+  }
+
+  Widget getUserBirthday(UserEntity user) {
+    _birthdayController.text = user.birthDate != null ? user.birthDate.toString().substring(0, 10) : "";
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(left: 14, right: 18, top: 4, bottom: 4),
+      padding: const EdgeInsets.only(left: 14, right: 0, top: 4, bottom: 4),
+      decoration: BoxDecoration(
+        border: Border.all(color: ThemeApp.secondColor),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextFormField(
+        controller: _birthdayController,
+        style: ThemeApp.textTheme.bodyLarge?.copyWith(color: Colors.black),
+        decoration: InputDecoration(
+          labelText: CultureService().getLocalResource("account-birthday"),
+          border: InputBorder.none,
+          counterText: "",
+          labelStyle: ThemeApp.textTheme.bodyMedium?.copyWith(color: ThemeApp.thirdColor),
+        ),
+        onTap: () async {
+          DateTime? selectedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime(2100),
+          );
+          if (selectedDate != null) {
+            _birthdayController.text = "${selectedDate.toLocal()}".split(' ')[0];
+          }
+        },
+      ),
+    );
   }
 }

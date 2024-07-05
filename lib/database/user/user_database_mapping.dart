@@ -8,7 +8,7 @@ class UserDatabaseMapping {
       "email": user.email,
       "name": user.name,
       "userId": user.userId,
-      // "birthDate": user.birthDate,
+      "birthDate": user.birthDate?.toString(),
       "isLogged": user.isLogged
     };
 
@@ -21,7 +21,7 @@ class UserDatabaseMapping {
     userObject.email = user["email"];
     userObject.name = user["name"];
     userObject.userId = user["userId"];
-    // userObject.birthDate = user["birthDate"];
+    userObject.birthDate = user["birthDate"] == null ? null : DateTime.parse(user["birthDate"]);
     userObject.isLogged = user["isLogged"];
 
     return userObject;
