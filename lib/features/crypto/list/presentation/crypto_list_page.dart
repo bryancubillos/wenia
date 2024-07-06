@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wenia/core/config/environment_config.dart';
 
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
@@ -187,18 +188,28 @@ class _CryptoListPageState extends State<CryptoListPage> {
   }
 
   Widget getFloatingActionButton(BuildContext context) {
-    return Positioned(
-      bottom: 16,
-      right: 16,
-      child: FloatingActionButton(
-        onPressed: () {
-          
-        },
-        backgroundColor: ThemeApp.secondColor,
-        foregroundColor: ThemeApp.primaryColor,
-        child: const Icon(Icons.compare_arrows),
-      ),
-    );
+    return BlocBuilder<CryptoListBloc, CryptoListState>(
+      buildWhen: (previous, current) => current is CryptoListLoaded,
+      builder: (context, state) {
+        if(state is CryptoListLoaded) {
+          if(state.countCompareCoins == EnvironmentConfig.maxCompareCoins) {
+            return Positioned(
+              bottom: 11,
+              right: 11,
+              child: FloatingActionButton(
+                onPressed: () {
+                  
+                },
+                backgroundColor: ThemeApp.secondColor,
+                foregroundColor: ThemeApp.primaryColor,
+                child: const Icon(Icons.compare_arrows),
+              ),
+            );
+          }
+        }
+        
+        return const SizedBox.shrink();
+      });
   }
 
   // [Functions]

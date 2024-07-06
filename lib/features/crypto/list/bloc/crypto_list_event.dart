@@ -11,3 +11,6 @@ final class DoGetCoins extends CryptoListEvent {
   
   const DoGetCoins(this.sortDescending, this.search, this.isFavorite);
 }
+
+
+final class DoGetWhitoutInfoCoins extends CryptoListEvent {}

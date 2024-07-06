@@ -10,6 +10,7 @@ final class CryptoListLoading extends CryptoListState {}
 
 final class CryptoListLoaded extends CryptoListState {
   final List<CoinEntity> coins;
+  final int countCompareCoins;
 
-  const CryptoListLoaded(this.coins);
+  const CryptoListLoaded(this.coins, this.countCompareCoins);
 }

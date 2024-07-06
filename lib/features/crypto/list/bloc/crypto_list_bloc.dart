@@ -14,6 +14,7 @@ class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
   // [Constructor]
   CryptoListBloc() : super(CryptoListInitial()) {
     on<DoGetCoins>(_onDoGetCoins);
+    on<DoGetWhitoutInfoCoins>(_onDoGetWhitoutInfoCoins);
   }
 
   // [Methods]
@@ -24,10 +25,24 @@ class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
     _searchValue = event.search;
     _isFavorite = event.isFavorite;
 
+    await getCoins(emit);
+  }
+
+  Future<void> _onDoGetWhitoutInfoCoins(DoGetWhitoutInfoCoins event, Emitter<CryptoListState> emit) async {
+    emit(CryptoListLoading());
+    
+    await getCoins(emit);
+  }
+
+  // [Methods]
+  Future<void> getCoins(Emitter<CryptoListState> emit) async {
     // Get coins
     List<CoinEntity> coins = [];
     coins = await CryptoBll().getCoins(_sortDescending, _searchValue, _isFavorite);
 
-    emit(CryptoListLoaded(coins));
+    // How many coins are being compared
+    int countCompareCoins = await CryptoBll().getCompareCoinsCount();
+    
+    emit(CryptoListLoaded(coins, countCompareCoins));
   }
 }

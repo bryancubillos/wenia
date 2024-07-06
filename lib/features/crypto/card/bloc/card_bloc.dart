@@ -19,8 +19,11 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
     // Save favorite status by Crypto card
     await CryptoBll().setFavorite(event.coin);
+    
+    // How many coins are being compared
+    int countCompareCoins = await CryptoBll().getCompareCoinsCount();
 
-    emit(CardLoaded());
+    emit(CardLoaded(countCompareCoins));
   }
 
   Future<void> _onDoSetCompare(DoSetCompare event, Emitter<CardState> emit) async {
@@ -29,8 +32,11 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     // Save compare status by Crypto card
     ResultEntity result = await CryptoBll().setCompare(event.coin);
     
+    // How many coins are being compared
+    int countCompareCoins = await CryptoBll().getCompareCoinsCount();
+
     emit(CardShowMessage(result.cultureMessage));
 
-    emit(CardLoaded());
+    emit(CardLoaded(countCompareCoins));
   }
 }

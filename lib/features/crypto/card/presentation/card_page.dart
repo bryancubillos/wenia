@@ -7,6 +7,7 @@ import 'package:wenia/core/config/environment_config.dart';
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/features/common/message/message.dart';
 import 'package:wenia/features/crypto/card/bloc/card_bloc.dart';
+import 'package:wenia/features/crypto/list/bloc/crypto_list_bloc.dart';
 
 class CardPage extends StatefulWidget {
   final CoinEntity coin;
@@ -46,6 +47,10 @@ class _CardPageState extends State<CardPage> {
               if(state.message.isNotEmpty) {
                 Message().showMessage(context, CultureService().getLocalResource(state.message));
               }
+            }
+
+            if(state is CardLoaded) {
+              context.read<CryptoListBloc>().add(DoGetWhitoutInfoCoins());
             }
           },
           child: Padding(
