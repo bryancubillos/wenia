@@ -11,4 +11,5 @@ class EnvironmentConfig {
   static const int keepCoinsByTimeInMinutesDuration = 10; // => 10 minutes by avoid to call the API again (i dont have licence to use the API)
   static const int minSearchLength = 3;
   static const int maxCompareCoins = 2;
+  static const int maxNameInCard = 28;
 }

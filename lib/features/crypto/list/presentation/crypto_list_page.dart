@@ -51,10 +51,11 @@ class _CryptoListPageState extends State<CryptoListPage> {
         backgroundColor: ThemeApp.primaryColor,
       ),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
             getHeaderFilterOptions(),
             Expanded(child: getCoins(context)),
+            getFloatingActionButton(context),
           ],
         ),
       ),
@@ -80,8 +81,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
 
   Widget getCoins(BuildContext context) {
     return BlocBuilder<CryptoListBloc, CryptoListState>(
-      buildWhen: (previous, current) =>
-          current is CryptoListLoaded || current is CryptoListLoading,
+      buildWhen: (previous, current) => current is CryptoListLoaded || current is CryptoListLoading,
       builder: (context, state) {
         if (state is CryptoListLoading) {
           return const Center(child: CircularProgressIndicator());
@@ -89,15 +89,18 @@ class _CryptoListPageState extends State<CryptoListPage> {
 
         if (state is CryptoListLoaded) {
           if (state.coins.isNotEmpty) {
-            return ListView.builder(
-              key: ValueKey<bool>(_sortDescending),
-              itemCount: state.coins.length,
-              itemBuilder: (context, index) {
-                return BlocProvider<CardBloc>(
-                  create: (_) => CardBloc(),
-                  child: CardPage(coin: state.coins[index]),
-                );
-              },
+            return Padding(
+              padding: const EdgeInsets.only(top: 67.0),
+              child: ListView.builder(
+                key: ValueKey<bool>(_sortDescending),
+                itemCount: state.coins.length,
+                itemBuilder: (context, index) {
+                  return BlocProvider<CardBloc>(
+                    create: (_) => CardBloc(),
+                    child: CardPage(coin: state.coins[index]),
+                  );
+                },
+              )
             );
           } else {
             return Center(
@@ -180,6 +183,21 @@ class _CryptoListPageState extends State<CryptoListPage> {
           ),
         ),
       )
+    );
+  }
+
+  Widget getFloatingActionButton(BuildContext context) {
+    return Positioned(
+      bottom: 16,
+      right: 16,
+      child: FloatingActionButton(
+        onPressed: () {
+          
+        },
+        backgroundColor: ThemeApp.secondColor,
+        foregroundColor: ThemeApp.primaryColor,
+        child: const Icon(Icons.compare_arrows),
+      ),
     );
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:wenia/core/Entities/crypto/coin_entity.dart';
+import 'package:wenia/core/config/environment_config.dart';
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/features/common/message/message.dart';
 import 'package:wenia/features/crypto/card/bloc/card_bloc.dart';
@@ -129,7 +130,7 @@ class _CardPageState extends State<CardPage> {
 
   Widget getName() {
     return Text(
-      coin.name,
+      coin.name.length > EnvironmentConfig.maxNameInCard ? '${coin.name.substring(0, EnvironmentConfig.maxNameInCard)}...' : coin.name,
       style: const TextStyle(
         color: Colors.grey,
         fontSize: 18,
