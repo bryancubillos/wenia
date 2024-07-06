@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:wenia/core/Entities/crypto/coin_entity.dart';
-import 'package:wenia/core/config/environment_config.dart';
-import 'package:wenia/core/service/culture_service.dart';
 
+import 'package:wenia/core/Entities/crypto/coin_entity.dart';
+import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
-import 'package:wenia/features/crypto/card/bloc/card_bloc.dart';
 import 'package:wenia/features/crypto/compare/bloc/compare_bloc.dart';
-import 'package:wenia/features/crypto/list/bloc/crypto_list_bloc.dart';
 
 class CryptoComparePage extends StatefulWidget {
   const CryptoComparePage({super.key});

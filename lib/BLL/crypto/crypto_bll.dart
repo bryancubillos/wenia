@@ -1,7 +1,6 @@
 import 'package:wenia/DAL/crypto/domain/crypto_dal_domain.dart';
 import 'package:wenia/core/Entities/common/result_entity.dart';
 import 'package:wenia/core/Entities/crypto/coin_entity.dart';
-import 'package:wenia/core/config/environment_config.dart';
 
 class CryptoBll {
   // [Properties]
