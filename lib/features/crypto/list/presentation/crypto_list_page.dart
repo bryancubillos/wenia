@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wenia/core/config/environment_config.dart';
+import 'package:wenia/core/router/routes.dart';
 
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
@@ -198,7 +199,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
               right: 11,
               child: FloatingActionButton(
                 onPressed: () {
-                  
+                  Navigator.pushNamed(context, Routes.compare);
                 },
                 backgroundColor: ThemeApp.secondColor,
                 foregroundColor: ThemeApp.primaryColor,

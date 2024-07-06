@@ -73,4 +73,9 @@ class CryptoBll {
     List<CoinEntity> memoryCoinsToCompare = await CryptoDAL().getCompareCoins();
     return memoryCoinsToCompare.length;
   }
+
+
+  Future<List<CoinEntity>> getCompareCoins() async {
+    return await CryptoDAL().getCompareCoins();
+  }
 }

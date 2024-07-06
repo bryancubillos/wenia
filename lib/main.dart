@@ -7,6 +7,7 @@ import 'package:wenia/core/router/routes.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
 import 'package:wenia/features/common/menu/bloc/menu_bloc.dart';
 import 'package:wenia/features/crypto/card/bloc/card_bloc.dart';
+import 'package:wenia/features/crypto/compare/bloc/compare_bloc.dart';
 import 'package:wenia/features/crypto/list/bloc/crypto_list_bloc.dart';
 import 'package:wenia/features/security/account/bloc/account_bloc.dart';
 import 'package:wenia/features/security/change_password/bloc/change_password_bloc.dart';
@@ -53,6 +54,9 @@ void main() async {
       ),
       BlocProvider<CardBloc>(
         create: (BuildContext context) => CardBloc(),
+      ),
+      BlocProvider<CompareBloc>(
+        create: (BuildContext context) => CompareBloc(),
       ),
     ],
     child: const MyApp()

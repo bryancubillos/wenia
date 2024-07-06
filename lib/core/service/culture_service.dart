@@ -200,6 +200,14 @@ class CultureService {
     "crypto-compare-limit-reached" : [{
       "es":"¡Ups lo sentimos!, ha alcanzado el límite de comparación"
     }],
+
+    // Compare crypto
+    "compare-crypto-title" : [{
+      "es":"Comparar monedas"
+    }],
+    "compare-crypto-go-back-button" : [{
+      "es":"Cambiar monedas"
+    }],
   };
 
   // [Singleton]

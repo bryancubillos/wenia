@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:wenia/features/common/menu/presentation/menu_page.dart';
 import 'package:wenia/features/common/welcome/presentation/welcome_page.dart';
+import 'package:wenia/features/crypto/compare/presentation/crypto_compare_page.dart';
 import 'package:wenia/features/security/account/presentation/account_page.dart';
 import 'package:wenia/features/security/change_password/presentation/change_password_page.dart';
 import 'package:wenia/features/security/login/presentation/security_login_page.dart';
@@ -27,6 +28,9 @@ class Routes {
   static const String welcome = '/welcome';
   static const String menu = '/menu';
 
+  // Crypto
+  static const String compare = '/compare';
+
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {
     Map<String, Widget Function(BuildContext)> routes = {
       // [Wenia Apps]
@@ -46,7 +50,10 @@ class Routes {
 
       // Common
       menu: (context) => const MenuPage(),
-      welcome: (context) => const WelcomePage()
+      welcome: (context) => const WelcomePage(),
+
+      // Crypto
+      compare: (context) => const CryptoComparePage()
     };
 
     return routes;
@@ -62,6 +69,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const SecurityPage());
       case account:
         return MaterialPageRoute(builder: (context) => const AccountPage());
+      case compare:
+        return MaterialPageRoute(builder: (context) => const CryptoComparePage());
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }
