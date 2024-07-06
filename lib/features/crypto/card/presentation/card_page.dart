@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:wenia/core/Entities/crypto/coin_entity.dart';
+import 'package:wenia/core/service/culture_service.dart';
+import 'package:wenia/features/common/message/message.dart';
 import 'package:wenia/features/crypto/card/bloc/card_bloc.dart';
 
 class CardPage extends StatefulWidget {
@@ -37,36 +39,51 @@ class _CardPageState extends State<CardPage> {
   // [Constructor]
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 14.0, right: 0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              getIcon(),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocListener<CardBloc, CardState>(
+          listener: (context, state) {
+            if (state is CardShowMessage) {
+              if(state.message.isNotEmpty) {
+                Message().showMessage(context, CultureService().getLocalResource(state.message));
+              }
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 14.0, right: 0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        getSymbol(),
-                        getFavoriteButton(context)
-                      ],
+                    getIcon(),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              getSymbol(),
+                              getFavoriteButton(context)
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              getName(),
+                              getCheckbox()
+                            ],
+                          ),
+                          getPrice(),
+                        ],
+                      ),
                     ),
-                    getName(),
-                    getPrice(),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          )
     );
   }
 
@@ -138,6 +155,20 @@ class _CardPageState extends State<CardPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget getCheckbox() {
+    return Checkbox(
+      value: coin.isCompare ?? false,
+      onChanged: (bool? newValue) {
+        setState(() {
+          // Update UX data
+          coin.isCompare = newValue ?? false;
+
+          context.read<CardBloc>().add(DoSetCompare(coin));
+        });
+      },      
     );
   }
 

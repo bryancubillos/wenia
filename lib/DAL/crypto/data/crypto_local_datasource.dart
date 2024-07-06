@@ -7,6 +7,7 @@ class CryptoLocalDatasource {
   // [properties]
   List<CoinEntity> localCoins  = [];
   DateTime lastUpdated = DateTime.now();
+  List<CoinEntity> compareCoins  = [];
 
   // [Singleton]
   static final CryptoLocalDatasource _instance = CryptoLocalDatasource._constructor();
@@ -58,5 +59,28 @@ class CryptoLocalDatasource {
   // [Database]
   Future<bool> initDatabase() async {
     return await CryptoDatabase().initDatabase();
+  }
+
+  // [Memory]
+  Future<bool> setCompare(CoinEntity coin) async {
+    bool result = false;
+
+    if(coin.isCompare == true) {
+      List<CoinEntity> coinsToCompare = await getCompareCoins();
+
+      if(coinsToCompare.length < EnvironmentConfig.maxCompareCoins) {
+        compareCoins.add(coin);
+        result = true;
+      }
+    }
+    else {
+      compareCoins.removeWhere((element) => element.id == coin.id);
+    }
+
+    return result;
+  }
+
+  Future<List<CoinEntity>> getCompareCoins() async {
+    return compareCoins;
   }
 }

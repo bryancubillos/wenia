@@ -9,3 +9,9 @@ final class DoSetFavorite extends CardEvent {
   
   const DoSetFavorite(this.coin);
 }
+
+final class DoSetCompare extends CardEvent {
+  final CoinEntity coin;
+  
+  const DoSetCompare(this.coin);
+}

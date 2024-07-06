@@ -5,6 +5,7 @@ import 'package:wenia/core/router/routes.dart';
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/device/size_util.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
+import 'package:wenia/features/common/menu/bloc/menu_bloc.dart';
 import 'package:wenia/features/common/message/message.dart';
 import 'package:wenia/features/security/profile/bloc/profile_bloc.dart';
 import 'package:wenia/features/security/security/bloc/security_bloc.dart';
@@ -239,6 +240,8 @@ class _ProfilePageState extends State<ProfilePage> {
           () {
             // Log out user
             context.read<ProfileBloc>().add(DoLogOutProfileUser());
+            // Reset menu position
+            context.read<MenuBloc>().add(DoLogout());            
           }
         );
       });

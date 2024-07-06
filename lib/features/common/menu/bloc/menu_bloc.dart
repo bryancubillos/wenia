@@ -19,6 +19,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     // All events
     on<DoGetMenu>(_onGetMenu);
     on<DoChangePage>(_onChangePage);
+    on<DoLogout>(_onLogout);
   }
 
   // [Events]
@@ -48,5 +49,9 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     // Save the selected index
     MenuBloc.selectedIndex = event.index;
     emit(MenuLoaded(MenuBloc.menuItems, MenuBloc.pages, MenuBloc.selectedIndex));
+  }
+
+  Future<void> _onLogout(DoLogout event, Emitter<MenuState> emit) async {
+    MenuBloc.selectedIndex = 0;
   }
 }

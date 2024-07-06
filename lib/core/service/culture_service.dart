@@ -194,6 +194,12 @@ class CultureService {
     "crypto-no-data" : [{
       "es":"Sin información"
     }],
+    "crypto-coin-select-by-compare" : [{
+      "es":"Seleccionar para comparar"
+    }],
+    "crypto-compare-limit-reached" : [{
+      "es":"¡Ups lo sentimos!, ha alcanzado el límite de comparación"
+    }],
   };
 
   // [Singleton]

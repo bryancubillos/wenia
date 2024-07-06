@@ -11,3 +11,5 @@ class DoChangePage extends MenuEvent {
 
   const DoChangePage(this.index);
 }
+
+class DoLogout extends MenuEvent {}

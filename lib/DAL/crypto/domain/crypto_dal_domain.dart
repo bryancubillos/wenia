@@ -66,6 +66,15 @@ class CryptoDAL {
     await CryptoLocalDatasource().setFavorite(coin);
   }
 
+  // [Memory]
+  Future<bool> setCompare(CoinEntity coin) async {
+    return await CryptoLocalDatasource().setCompare(coin);
+  }
+
+  Future<List<CoinEntity>> getCompareCoins() async {
+    return await CryptoLocalDatasource().getCompareCoins();
+  }
+
   // [Database]
   Future<bool> initDatabase() async {
     return await CryptoLocalDatasource().initDatabase();

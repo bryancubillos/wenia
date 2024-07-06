@@ -1,6 +1,7 @@
 import 'package:wenia/DAL/crypto/domain/crypto_dal_domain.dart';
 import 'package:wenia/core/Entities/common/result_entity.dart';
 import 'package:wenia/core/Entities/crypto/coin_entity.dart';
+import 'package:wenia/core/config/environment_config.dart';
 
 class CryptoBll {
   // [Properties]
@@ -48,5 +49,28 @@ class CryptoBll {
 
   Future<void> setFavorite(CoinEntity coin) async {
     await CryptoDAL().setFavorite(coin);
+  }
+
+  Future<ResultEntity> setCompare(CoinEntity coin) async {
+    ResultEntity result = ResultEntity.empty();
+
+    bool canCompare = await CryptoDAL().setCompare(coin);
+
+    if(canCompare == false) {
+      // Only show message when the coin is in compare list
+      if(coin.isCompare ?? false) {
+        result.cultureMessage = "crypto-compare-limit-reached";
+      }
+      
+      // Set the real value of isCompare
+      coin.isCompare = false;
+    }
+
+    return result;
+  }
+
+  Future<int> getCompareCoinsCount() async {
+    List<CoinEntity> memoryCoinsToCompare = await CryptoDAL().getCompareCoins();
+    return memoryCoinsToCompare.length;
   }
 }

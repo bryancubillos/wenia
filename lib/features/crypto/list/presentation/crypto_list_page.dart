@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:wenia/core/service/culture_service.dart';
 import 'package:wenia/core/utils/style/theme_app.dart';
+import 'package:wenia/features/crypto/card/bloc/card_bloc.dart';
 import 'package:wenia/features/crypto/card/presentation/card_page.dart';
 import 'package:wenia/features/crypto/list/bloc/crypto_list_bloc.dart';
 
@@ -92,7 +93,10 @@ class _CryptoListPageState extends State<CryptoListPage> {
               key: ValueKey<bool>(_sortDescending),
               itemCount: state.coins.length,
               itemBuilder: (context, index) {
-                return CardPage(coin: state.coins[index]);
+                return BlocProvider<CardBloc>(
+                  create: (_) => CardBloc(),
+                  child: CardPage(coin: state.coins[index]),
+                );
               },
             );
           } else {
