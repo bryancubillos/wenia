@@ -1,6 +1,7 @@
 import 'package:wenia/core/Entities/common/result_entity.dart';
 import 'package:wenia/core/Entities/crypto/coin_entity.dart';
 import 'package:wenia/core/config/environment_config.dart';
+import 'package:wenia/database/crypto/crypto_database.dart';
 
 class CryptoLocalDatasource {
   // [properties]
@@ -37,5 +38,10 @@ class CryptoLocalDatasource {
     }
 
     return result;
+  }
+
+  // [Database]
+  Future<bool> initDatabase() async {
+    return await CryptoDatabase().initDatabase();
   }
 }

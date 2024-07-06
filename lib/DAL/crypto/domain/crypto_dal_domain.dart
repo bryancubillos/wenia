@@ -40,4 +40,8 @@ class CryptoDAL {
     return CryptoLocalDatasource().saveLocalCoins(coins);
   }
   
+  // [Database]
+  Future<bool> initDatabase() async {
+    return await CryptoLocalDatasource().initDatabase();
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:wenia/DAL/crypto/domain/crypto_dal_domain.dart';
 import 'package:wenia/DAL/security/domain/security_dal_domain.dart';
 
 class CommonDatabase {
@@ -14,6 +15,8 @@ class CommonDatabase {
 
   // [Database]
   Future<bool> initDatabase() async {
-    return await SecurityDAL().initDatabase();
+    await SecurityDAL().initDatabase();
+
+    return await CryptoDAL().initDatabase();
   }
 }

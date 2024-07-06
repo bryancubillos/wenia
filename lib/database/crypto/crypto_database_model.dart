@@ -1,6 +1,6 @@
 import 'package:wenia/core/constants/database/database_constant.dart';
 
-class UserDatabaseModel {
+class CryptoDatabaseModel {
   
   static const databaseName = DatabaseConstant.cryptoDatabaseName;
   static const databaseVersion = DatabaseConstant.cryptoDatabaseVersion;
@@ -10,8 +10,5 @@ class UserDatabaseModel {
   static const columnId = '_id';
   
   static const columnCryptoId = 'cryptoId';
-  static const columnName = 'name';
-  static const columnSymbol = 'symbol';
-  static const columnCurrentPrice = 'currentPrice';
-  static const columnImage = 'image';
+  static const columnIsFavorite = 'isFavorite';
 }
