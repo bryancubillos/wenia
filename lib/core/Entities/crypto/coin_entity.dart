@@ -4,6 +4,7 @@ class CoinEntity {
   String name;
   String image;
   double currentPrice;
+  bool isFavorite;
 
   CoinEntity({
     required this.id,
@@ -11,6 +12,7 @@ class CoinEntity {
     required this.name,
     required this.image,
     required this.currentPrice,
+    this.isFavorite = false,
   });
 
   CoinEntity.empty()
@@ -18,7 +20,8 @@ class CoinEntity {
       symbol = "",
       name = "",
       image = "",
-      currentPrice = 0.0;
+      currentPrice = 0.0,
+      isFavorite = false;
 
   static List<CoinEntity> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => CoinEntity.empty().fromJson(json)).toList();

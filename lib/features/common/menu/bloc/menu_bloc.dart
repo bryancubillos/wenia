@@ -31,10 +31,6 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         label: CultureService().getLocalResource('menu-coins'),
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.star),
-        label: CultureService().getLocalResource('menu-favorites'),
-      ),
-      BottomNavigationBarItem(
         icon: const Icon(Icons.person),
         label: CultureService().getLocalResource('menu-profile'),
       ),
@@ -43,7 +39,6 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     // Prepare pages by index
     MenuBloc.pages = <Widget>[
       const CryptoListPage(),
-      const CryptoComparePage(),
       const ProfilePage()
     ];
 

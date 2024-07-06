@@ -71,3 +71,13 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+/*
+
+  TODO:
+    
+  - save crypto by id
+  - join local info with remote info
+
+*/

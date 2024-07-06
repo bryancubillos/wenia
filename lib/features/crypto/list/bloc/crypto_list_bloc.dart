@@ -8,6 +8,7 @@ part 'crypto_list_state.dart';
 class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
   // [Properties]
   bool _sortDescending = true;
+  bool _isFavorite = false;
   String _searchValue = "";
 
   // [Constructor]
@@ -21,10 +22,11 @@ class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
 
     _sortDescending = event.sortDescending;
     _searchValue = event.search;
+    _isFavorite = event.isFavorite;
 
     // Get coins
     List<CoinEntity> coins = [];
-    coins = await CryptoBll().getCoins(_sortDescending, _searchValue);
+    coins = await CryptoBll().getCoins(_sortDescending, _searchValue, _isFavorite);
 
     emit(CryptoListLoaded(coins));
   }

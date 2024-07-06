@@ -16,7 +16,7 @@ class CryptoBll {
   CryptoBll._constructor();
 
   // [Methods]
-  Future<List<CoinEntity>> getCoins(bool sortDescending, String searchValue) async {
+  Future<List<CoinEntity>> getCoins(bool sortDescending, String searchValue, bool onlyFavorites) async {
     ResultEntity result = await CryptoDAL().getCoins();
     List<CoinEntity> coins = [];
 
@@ -35,7 +35,12 @@ class CryptoBll {
         coins.sort((a, b) => b.currentPrice.compareTo(a.currentPrice));
       } else {
         coins.sort((a, b) => a.currentPrice.compareTo(b.currentPrice));
-      }      
+      }
+
+      // only favorites
+      if(onlyFavorites) {
+        coins = coins.where((coin) => coin.isFavorite).toList();
+      }
     }
 
     return coins;
