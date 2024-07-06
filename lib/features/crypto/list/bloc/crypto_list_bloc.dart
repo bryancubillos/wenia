@@ -13,11 +13,11 @@ class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
 
   // [Constructor]
   CryptoListBloc() : super(CryptoListInitial()) {
-    on<GetCoins>(_onGetCoins);
+    on<DoGetCoins>(_onDoGetCoins);
   }
 
   // [Methods]
-  Future<void> _onGetCoins(GetCoins event, Emitter<CryptoListState> emit) async {
+  Future<void> _onDoGetCoins(DoGetCoins event, Emitter<CryptoListState> emit) async {
     emit(CryptoListLoading());
 
     _sortDescending = event.sortDescending;

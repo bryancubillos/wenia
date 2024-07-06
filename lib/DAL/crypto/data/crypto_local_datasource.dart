@@ -29,7 +29,7 @@ class CryptoLocalDatasource {
     return result;
   }
 
-  ResultEntity getLocalCoins() {
+  Future<ResultEntity> getLocalCoins() async {
     ResultEntity result = ResultEntity.empty();
     
     if(localCoins.isNotEmpty && DateTime.now().difference(lastUpdated).inMinutes < EnvironmentConfig.keepCoinsByTimeInMinutesDuration) {
@@ -38,6 +38,21 @@ class CryptoLocalDatasource {
     }
 
     return result;
+  }
+
+  Future<List<CoinEntity>> getLocalDatabaseCoins() async {
+    return  await CryptoDatabase().selectCoins();
+  }
+
+  Future<void> setFavorite(CoinEntity coin) async {
+    CoinEntity cryptoDb = await CryptoDatabase().getCoin(coin.id) ?? CoinEntity.empty();
+    
+    if(cryptoDb.id.isNotEmpty) {
+      await CryptoDatabase().updateCoin(coin);
+    }
+    else {
+      await CryptoDatabase().saveCoin(coin);
+    }
   }
 
   // [Database]

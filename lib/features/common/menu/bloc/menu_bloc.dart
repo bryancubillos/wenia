@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wenia/core/service/culture_service.dart';
-import 'package:wenia/features/crypto/compare/presentation/crypto_compare_page.dart';
 import 'package:wenia/features/crypto/list/presentation/crypto_list_page.dart';
 import 'package:wenia/features/security/profile/presentation/profile_page.dart';
 

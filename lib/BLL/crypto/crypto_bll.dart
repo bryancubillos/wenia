@@ -45,4 +45,8 @@ class CryptoBll {
 
     return coins;
   }
+
+  Future<void> setFavorite(CoinEntity coin) async {
+    await CryptoDAL().setFavorite(coin);
+  }
 }

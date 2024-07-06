@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:wenia/core/Entities/crypto/coin_entity.dart';
+import 'package:wenia/features/crypto/card/bloc/card_bloc.dart';
 
 class CardPage extends StatefulWidget {
   final CoinEntity coin;
@@ -15,7 +17,6 @@ class CardPage extends StatefulWidget {
 class _CardPageState extends State<CardPage> {
   // [Properties]
   CoinEntity coin = CoinEntity.empty();
-  bool _isFavorite = false;
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class _CardPageState extends State<CardPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         getSymbol(),
-                        getFavoriteButton()
+                        getFavoriteButton(context)
                       ],
                     ),
                     getName(),
@@ -92,15 +93,18 @@ class _CardPageState extends State<CardPage> {
     );
   }
 
-  Widget getFavoriteButton() {
+  Widget getFavoriteButton(BuildContext context) {
     return IconButton(
       icon: Icon(
-        _isFavorite ? Icons.star : Icons.star_border,
-        color: _isFavorite ? Colors.yellow : Colors.grey,
+        coin.isFavorite ? Icons.star : Icons.star_border,
+        color: coin.isFavorite ? Colors.yellow : Colors.grey,
       ),
       onPressed: () {
         setState(() {
-          _isFavorite = !_isFavorite;
+          // Update UX data
+          coin.isFavorite = !coin.isFavorite;
+
+          context.read<CardBloc>().add(DoSetFavorite(coin));
         });
       },
     );

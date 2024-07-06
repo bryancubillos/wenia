@@ -17,7 +17,7 @@ class CryptoDatabaseMapping {
     CoinEntity coinObject = CoinEntity.empty();
 
     coinObject.id = coin["cryptoId"];
-    coinObject.isFavorite = coin["isFavorite"];
+    coinObject.isFavorite = coin["isFavorite"] == 1 ? true : false;
 
     return coinObject;
   }

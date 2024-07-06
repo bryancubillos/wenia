@@ -18,11 +18,12 @@ class CryptoDAL {
 
   // [Methods]
   Future<ResultEntity> getCoins() async {
-    ResultEntity resultLocal = CryptoLocalDatasource().getLocalCoins();
+    ResultEntity result = ResultEntity.empty();
+    ResultEntity resultLocal = await CryptoLocalDatasource().getLocalCoins();
     
     if(resultLocal.result) {
       // First local
-      return resultLocal;
+      result = resultLocal;
     }
     else {
       // Then remote
@@ -32,14 +33,39 @@ class CryptoDAL {
         CryptoLocalDatasource().saveLocalCoins(remoteResult.data);
       }
 
-      return remoteResult;
+      result = remoteResult;
     }
+
+    // Join whit local database
+    List<CoinEntity> databaseCryptos = await CryptoLocalDatasource().getLocalDatabaseCoins();
+    List<CoinEntity> databaseCoins = [];
+
+    if(databaseCryptos.isNotEmpty) {
+      databaseCoins = result.data;
+      
+      // Join
+      for (CoinEntity coinDB in databaseCryptos) {        
+        for (CoinEntity coinLocal in databaseCoins) {
+          if(coinLocal.id == coinDB.id) {
+            coinLocal.isFavorite = coinDB.isFavorite;
+          }
+        }
+      }
+
+      result.data = databaseCoins;
+    }  
+
+    return result;
   }
 
   ResultEntity saveCoins(List<CoinEntity> coins) {
     return CryptoLocalDatasource().saveLocalCoins(coins);
   }
   
+  Future<void> setFavorite(CoinEntity coin) async {
+    await CryptoLocalDatasource().setFavorite(coin);
+  }
+
   // [Database]
   Future<bool> initDatabase() async {
     return await CryptoLocalDatasource().initDatabase();

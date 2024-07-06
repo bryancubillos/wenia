@@ -27,7 +27,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
   void initState() {
     super.initState();
     // Get current user
-    context.read<CryptoListBloc>().add(GetCoins(_sortDescending, "", _isFavorite));
+    context.read<CryptoListBloc>().add(DoGetCoins(_sortDescending, "", _isFavorite));
   }
 
   // [Dispose]
@@ -136,7 +136,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
       onTap: () {
         setState(() {
           _sortDescending = !_sortDescending;
-          context.read<CryptoListBloc>().add(GetCoins(_sortDescending, _searchValue, _isFavorite));
+          context.read<CryptoListBloc>().add(DoGetCoins(_sortDescending, _searchValue, _isFavorite));
         });
       },
       child: Container(
@@ -160,7 +160,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
         onTap: () {
           setState(() {
             _isFavorite = !_isFavorite;
-            context.read<CryptoListBloc>().add(GetCoins(_sortDescending, _searchValue, _isFavorite));
+            context.read<CryptoListBloc>().add(DoGetCoins(_sortDescending, _searchValue, _isFavorite));
           });
         },
         child: Container(
@@ -192,7 +192,7 @@ class _CryptoListPageState extends State<CryptoListPage> {
         _searchValue = value;
       });
       
-      context.read<CryptoListBloc>().add(GetCoins(_sortDescending, _searchValue, _isFavorite));
+      context.read<CryptoListBloc>().add(DoGetCoins(_sortDescending, _searchValue, _isFavorite));
     });
   }
 }

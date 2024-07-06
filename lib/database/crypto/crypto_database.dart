@@ -54,6 +54,7 @@ class CryptoDatabase extends DatabaseBuilderAbstract {
     await db.execute('''
             CREATE TABLE ${CryptoDatabaseModel.table} (
               ${CryptoDatabaseModel.columnId} INTEGER PRIMARY KEY,
+              ${CryptoDatabaseModel.columnCryptoId} TEXT,
               ${CryptoDatabaseModel.columnIsFavorite} INTEGER
             )
             ''');
@@ -88,16 +89,16 @@ class CryptoDatabase extends DatabaseBuilderAbstract {
 
   // [Methods]
 
-
   // [Crypto]
-  Future<CoinEntity?> getCoin() async {
+  Future<CoinEntity?> getCoin(String cryptoId) async {
     if(isStoreOpened) {
-      CoinEntity localCoin;
-
       List<Map<String, dynamic>> coinsInDB = await _dbCrypto.query(CryptoDatabaseModel.table);
-      localCoin = CryptoDatabaseMapping().convertMapListToCrypto(coinsInDB);
+      List<CoinEntity> coins = CryptoDatabaseMapping().convertMapListToCryptos(coinsInDB);
+      CoinEntity coin = CoinEntity.empty();
 
-      return localCoin;
+      coin = coins.firstWhere((element) => element.id == cryptoId, orElse: () => CoinEntity.empty());
+      
+      return coin;
     }
     else {
       return null;
