@@ -129,6 +129,17 @@ class UserDatabase extends DatabaseBuilderAbstract {
     return 0;   
   }
 
+  Future<UserEntity> getUserByemail(String email) async {
+    if(isStoreOpened){
+      List<Map<String, dynamic>> usersInDB = await _dbUser.query(UserDatabaseModel.table);
+      List<UserEntity> localUsers = UserDatabaseMapping().convertMapListToUsers(usersInDB);
+      
+      return localUsers.where((element) => element.email == email).isEmpty ? UserEntity() : localUsers.where((element) => element.email == email).first;
+    }
+  
+    return UserEntity();   
+  }
+
   Future<int> deleteUser() async {
     if(isStoreOpened) {
       return await _dbUser.delete(

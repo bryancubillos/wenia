@@ -27,10 +27,6 @@ class _SecurityLoginPageState extends State<SecurityLoginPage> {
   @override
   void initState() {
     super.initState();
-
-    // Init
-    _accountNameController.text = "bryant_alejandro@hotmail.com";
-    _passwordController.text = "12345678";
   }
 
   // [Constructor]

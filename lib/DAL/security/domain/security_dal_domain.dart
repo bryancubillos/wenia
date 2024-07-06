@@ -27,15 +27,17 @@ class SecurityDAL {
 
     if(user != null) {
       UserEntity localUser = await SecurityLocalDatasource().getUser() ?? UserEntity();
-      localUser.email = user.email;
-      localUser.isLogged = 1;
       
       // If the user there arent in the local database, save it
-      if(await SecurityLocalDatasource().usersRowCount() == 0) {
-        await SecurityLocalDatasource().saveUser(localUser);
+      UserEntity? userDB = await SecurityLocalDatasource().getUserByemail(email);
+      if(userDB != null && userDB.email != null && userDB.email!.isNotEmpty) {
+        userDB.isLogged = 1;
+        await SecurityLocalDatasource().updateUser(userDB);
       }
       else {
-        await SecurityLocalDatasource().updateUser(localUser);
+        localUser.email = user.email;
+        localUser.isLogged = 1;
+        await SecurityLocalDatasource().saveUser(localUser);
       }
     }
 

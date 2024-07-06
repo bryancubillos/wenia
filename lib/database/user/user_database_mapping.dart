@@ -49,9 +49,7 @@ class UserDatabaseMapping {
       }
     }
 
-    if(users.isNotEmpty) {
-      user = users[0];
-    }
+    user = users.where((element) => element.isLogged == 1).isEmpty ? UserEntity() : users.where((element) => element.isLogged == 1).first;
 
     return user;
   }

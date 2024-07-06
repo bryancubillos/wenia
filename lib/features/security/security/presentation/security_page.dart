@@ -28,10 +28,10 @@ class _SecurityPageState extends State<SecurityPage> {
     return Scaffold(body: BlocBuilder<SecurityBloc, SecurityState>(
       builder: (context, state) {
         if (state is SecurityLoaded) {
-          if (state.user == null) {
-            return const WelcomePage();
-          } else {
+          if (state.user != null && state.user!.email != null && state.user!.email!.isNotEmpty) {
             return const MenuPage();
+          } else {
+            return const WelcomePage();
           }
         }
         return const Center(child: CircularProgressIndicator());

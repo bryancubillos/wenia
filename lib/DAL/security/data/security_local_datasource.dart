@@ -27,6 +27,10 @@ class SecurityLocalDatasource {
     return UserDatabase().getUser();
   }
 
+  Future<UserEntity?> getUserByemail(String email) async {
+    return UserDatabase().getUserByemail(email);
+  }
+
   Future<void> signOut() async {
     await UserDatabase().deleteUser();
   }

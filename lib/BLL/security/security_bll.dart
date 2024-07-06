@@ -99,6 +99,7 @@ class SecurityBll {
     // Keep all information
     if(localUser != null) {
       user.email = localUser.email;
+      user.isLogged = localUser.isLogged;
     }
 
     // Save user
